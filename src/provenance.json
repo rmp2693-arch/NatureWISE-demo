@@ -1,0 +1,32 @@
+{
+  "label": "PUBLIC DEMO · SYNTHETIC DATA",
+  "payload_sha256": "36fd5ae8e2164a25d84ccf8c805049e5d7077d4702337e0237f39ceefe37a862",
+  "sources_sha256": {
+    "NatureWise_dataset_SINTETICO_CSV.zip/naturewise_core_S01_OLI_ARIDO.csv": "5dc8a1cb5513047041e31203caab669b882eb3b156494bf5c9365d01d0aabda5",
+    "NatureWise_dataset_SINTETICO_CSV.zip/plots.csv": "be87d16a9bdae2aa673b3afc891cee785b6b0793beaf174908118d20ac4e866b",
+    "NatureWise_dataset_SINTETICO_CSV.zip/sites.csv": "0e35d39fcc6204b544241fc5ae990cf0e108267d440183f783eedff45b162fcb",
+    "NatureWise_GEODATOS_SINTETICOS_COMPLETO.zip/NatureWise_geodatos_SINTETICOS/geojson/plots/S01_OLI_ARIDO_plots.geojson": "54d79d58e3fd7430bd02a184ef150dc8f89f35f9f3e56898e59c8d594ca88227",
+    "NatureWise_GEODATOS_SINTETICOS_COMPLETO.zip/NatureWise_geodatos_SINTETICOS/geojson/sites/S01_OLI_ARIDO_boundary.geojson": "7ec8f9c9a449f9358d12243e386fc592b926e3db332f40a21e621af20eb67748",
+    "NatureWise_GEODATOS_SINTETICOS_COMPLETO.zip/NatureWise_geodatos_SINTETICOS/metadata/SYNTHETIC_expected_plot_means_from_uav.csv": "289f0c72a21f3207a6a2120ad23943a8ba2e851d87c846199dd99e88ff73c244",
+    "NatureWise_GEODATOS_SINTETICOS_COMPLETO.zip/NatureWise_geodatos_SINTETICOS/uav/S01_OLI_ARIDO/2024-05-15/metadata.json": "fd5d548eab7278b21cdb8fccf2012a7f8be794cdad5efa8dc4a2ae13f38052dc",
+    "NatureWise_GEODATOS_SINTETICOS_COMPLETO.zip/NatureWise_geodatos_SINTETICOS/uav/S01_OLI_ARIDO/2024-05-15/SYNTHETIC_multispectral_5band_COG.tif": "e567e0af029e816cd38a9a677b4d613c521f85511fdc8614cd8fdffa5ce4c06b",
+    "NatureWise_GEODATOS_SINTETICOS_COMPLETO.zip/NatureWise_geodatos_SINTETICOS/uav/S01_OLI_ARIDO/2024-05-15/SYNTHETIC_thermal_K_x100.tif": "0cb4be735550dcc6f246ef54e03e4c445adfb17e4e4a197fdaeb327eab134bca",
+    "NatureWise_GEODATOS_SINTETICOS_COMPLETO.zip/NatureWise_geodatos_SINTETICOS/uav/S01_OLI_ARIDO/2024-07-15/metadata.json": "5b87cac491f71749f5510a1cb29c5592e014996b7de70145c50f68229c644307",
+    "NatureWise_GEODATOS_SINTETICOS_COMPLETO.zip/NatureWise_geodatos_SINTETICOS/uav/S01_OLI_ARIDO/2024-07-15/SYNTHETIC_multispectral_5band_COG.tif": "ee53b8806e3f20533e43a95f0b7a2be1dd8f8b41dd95f6730490ec2b0ba3e5ed",
+    "NatureWise_GEODATOS_SINTETICOS_COMPLETO.zip/NatureWise_geodatos_SINTETICOS/uav/S01_OLI_ARIDO/2024-07-15/SYNTHETIC_thermal_K_x100.tif": "3d25c1072554031bbe525aab6f4cff5945f148e5318b5020d6420501732e349d",
+    "NatureWise_GEODATOS_SINTETICOS_COMPLETO.zip/NatureWise_geodatos_SINTETICOS/uav/S01_OLI_ARIDO/2025-05-15/metadata.json": "53c9b2c1aa0270f86ca11ebb9946dfa3a517cc171a59afdcf674e22c73931473",
+    "NatureWise_GEODATOS_SINTETICOS_COMPLETO.zip/NatureWise_geodatos_SINTETICOS/uav/S01_OLI_ARIDO/2025-05-15/SYNTHETIC_multispectral_5band_COG.tif": "2225929918f2d20723dcdca3aa38b452f249d0e542bc699e7a12d86bc7ffeb4d",
+    "NatureWise_GEODATOS_SINTETICOS_COMPLETO.zip/NatureWise_geodatos_SINTETICOS/uav/S01_OLI_ARIDO/2025-05-15/SYNTHETIC_thermal_K_x100.tif": "45eb90d10fd006f7dbb287c1b41450358078d2ce0f70ccf8fc7418e9e3e377c8",
+    "NatureWise_GEODATOS_SINTETICOS_COMPLETO.zip/NatureWise_geodatos_SINTETICOS/uav/S01_OLI_ARIDO/2025-07-15/metadata.json": "76af725ca77252489b829c19fb2bab5b7e1cfc66caaa1c5c6fb8ec79218114a8",
+    "NatureWise_GEODATOS_SINTETICOS_COMPLETO.zip/NatureWise_geodatos_SINTETICOS/uav/S01_OLI_ARIDO/2025-07-15/SYNTHETIC_multispectral_5band_COG.tif": "c3b24392b02d1ec1f6ad0caac0f45455073e2116c78847b6d06636aede404233",
+    "NatureWise_GEODATOS_SINTETICOS_COMPLETO.zip/NatureWise_geodatos_SINTETICOS/uav/S01_OLI_ARIDO/2025-07-15/SYNTHETIC_thermal_K_x100.tif": "4b01b6572fb4d4750dfbaa40a9a9aab3ed66739acb0f4f46897cd9f91c0c7621",
+    "structural/SYNTHETIC-box.obj": "a5815adf5cc083908fe3b9725d428af7da9044560a4116cc98bbf5fd45aa0648"
+  },
+  "assets": {
+    "observations": "S01 core rows; exact numeric values, units and missing reasons retained. Plot metadata joined by experimental unit.",
+    "map": "S01 polygons and site boundary projected to metres and translated to a local origin. Geographic location omitted. Background texture is diagrammatic.",
+    "uav": "0.5 m raster pixel centres inside each polygon. NDVI=(B08-B04)/(B08+B04); NDRE=(B08-B05)/(B08+B05). Mask invalid pixels; mean of per-pixel ratios. Mixed temperature is DN*0.01-273.15. NDVI and thermal means checked against packaged known answers.",
+    "satellite": "Illustrative synthetic native grids, spectra and SCL classes generated in src/satellite.ts. No Copernicus observations or harmonization.",
+    "mesh": "Vertex and triangle geometry transcribed from packaged synthetic unit-box OBJ."
+  }
+}

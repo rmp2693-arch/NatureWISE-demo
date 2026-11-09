@@ -1,0 +1,73 @@
+import { test, expect } from "@playwright/test";
+import { readFile } from "node:fs/promises";
+
+test("desktop atlas, keyboard plot selection and shared context",async({page})=>{
+  const errors:string[]=[];
+  page.on("pageerror",error=>errors.push(error.message));
+  await page.goto("./");
+  await expect(page.getByText("PUBLIC DEMO · SYNTHETIC DATA",{exact:true})).toBeVisible();
+  await expect(page.getByText("1,920",{exact:true})).toBeVisible();
+  const plots=page.getByRole("button",{name:/^Plot B/});
+  await expect(plots).toHaveCount(24);
+  await plots.nth(3).focus();
+  await page.keyboard.press("Enter");
+  await expect(plots.nth(3)).toHaveAttribute("aria-pressed","true");
+  const selected=await page.locator("#plot").inputValue();
+  await page.getByRole("link",{name:/UAV Imagery/}).click();
+  await expect(page.locator("#plot")).toHaveValue(selected);
+  await page.getByRole("button",{name:/2025-07-15/}).click();
+  await page.getByLabel("Product").selectOption("NDRE");
+  await expect(page.getByRole("heading",{name:"NDRE across plots"})).toBeVisible();
+  await page.getByLabel("Product").selectOption("Mixed temperature");
+  await expect(page.getByText("Mixed canopy-and-ground temperature.",{exact:true})).toBeVisible();
+  await expect(page.getByText(/°C/).first()).toBeVisible();
+  expect(errors).toEqual([]);
+});
+test("phenotyping filters, pagination and real CSV export",async({page})=>{
+  await page.goto("./#phenotyping");
+  await page.getByLabel("Trait",{exact:true}).selectOption("soil_water_m3_m3");
+  await page.getByLabel("Treatment",{exact:true}).selectOption("Suelo desnudo");
+  await page.getByLabel("Genotype",{exact:true}).selectOption("OLI_G1");
+  await expect(page.getByRole("img",{name:"Distribution of per-plot temporal means"})).toBeVisible();
+  const [download]=await Promise.all([page.waitForEvent("download"),page.getByRole("button",{name:/Download filtered CSV/}).click()]);
+  const text=await readFile((await download.path())!,"utf8");
+  expect(text.split("\r\n").filter(Boolean).length).toBeGreaterThan(4);
+  expect(text).toContain('"Suelo desnudo","OLI_G1"');
+  expect(text).not.toContain("Cubierta corta");
+  await page.getByRole("button",{name:"Next",exact:true}).click();
+  await expect(page.getByText(/Page 2 of/)).toBeVisible();
+});
+test("mobile satellite masking, geometry and guide stay usable offline",async({page})=>{
+  await page.setViewportSize({width:390,height:844});
+  const external:string[]=[];
+  page.on("request",r=>{if(!r.url().startsWith("http://127.0.0.1:4173/"))external.push(r.url());});
+  await page.goto("./#satellite");
+  await page.getByLabel("Index",{exact:true}).selectOption("NDRE");
+  await page.getByRole("button",{name:/2025-07-18/}).click();
+  await expect(page.getByRole("heading",{name:"Native 20 m sampling"})).toBeVisible();
+  await expect(page.getByText(/may be unreliable/)).toBeVisible();
+  await page.getByLabel("Apply SCL mask").uncheck();
+  await expect(page.getByLabel("Apply SCL mask")).not.toBeChecked();
+  await expect(page.getByText(/without resampling, harmonization/)).toBeVisible();
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+  await page.getByRole("link",{name:/3D Structure/}).click();
+  const polygon=page.locator(".mesh polygon").first();
+  const before=await polygon.getAttribute("points");
+  await page.getByLabel("Azimuth").focus();
+  await page.keyboard.press("End");
+  await expect(polygon).not.toHaveAttribute("points",before!);
+  await page.getByRole("link",{name:/User Guide/}).click();
+  await expect(page.getByText(/full application provides authenticated/)).toBeVisible();
+  await expect(page.getByRole("button",{name:/Download provenance/})).toBeVisible();
+  expect(external).toEqual([]);
+});
+
+test("tablet atlas map and navigation fit without horizontal overflow",async({page})=>{
+  await page.setViewportSize({width:768,height:1024});
+  await page.goto("./");
+  await expect(page.getByRole("heading",{name:/Semi-arid olive grove/})).toBeVisible();
+  await expect(page.getByRole("group",{name:/Interactive synthetic S01 plot map/})).toBeVisible();
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(768);
+  await page.getByRole("link",{name:/Phenotyping/}).click();
+  await expect(page.getByRole("heading",{name:"Phenotyping explorer"})).toBeVisible();
+});
