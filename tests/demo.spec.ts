@@ -37,10 +37,11 @@ test("phenotyping filters, pagination and real CSV export",async({page})=>{
   await page.getByRole("button",{name:"Next",exact:true}).click();
   await expect(page.getByText(/Page 2 of/)).toBeVisible();
 });
-test("mobile satellite masking, geometry and guide stay usable offline",async({page})=>{
+test("mobile satellite masking, geometry and guide stay usable offline",async({page,baseURL})=>{
   await page.setViewportSize({width:390,height:844});
   const external:string[]=[];
-  page.on("request",r=>{if(!r.url().startsWith("http://127.0.0.1:4173/"))external.push(r.url());});
+  const origin = new URL(baseURL!).origin;
+  page.on("request",r=>{if(new URL(r.url()).origin!==origin)external.push(r.url());});
   await page.goto("./#satellite");
   await page.getByLabel("Index",{exact:true}).selectOption("NDRE");
   await page.getByRole("button",{name:/2025-07-18/}).click();

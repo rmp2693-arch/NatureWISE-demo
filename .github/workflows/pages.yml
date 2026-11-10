@@ -21,9 +21,13 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci
-      - run: npm run typecheck && npm test && npm run build && npm run check:public
       - run: npx playwright install --with-deps chromium
-      - run: npm run test:browser
+      - name: Validate the Cloudflare root build
+        run: npm run build:cloudflare && npm run test:browser
+      - name: Validate the GitHub Pages build
+        env:
+          DEMO_LEGACY_PAGES: '1'
+        run: npm run build && npm run check:public && npm run test:browser
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
